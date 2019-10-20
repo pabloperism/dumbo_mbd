@@ -29,7 +29,7 @@ class join_comunidades_provincias_contratos_reduce(key, values):
    def __init__(self):
         self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.txt')
 
-    def __call__(self, key, value):
+   def __call__(self, key, value):
         try:
 		    acc_mujeres = 0
 		    acc_hombres = 0
