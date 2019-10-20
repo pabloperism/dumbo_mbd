@@ -41,14 +41,14 @@ def join_comunidades_provincias_contratos_reduce(key, values):
     acc_mujeres = 0
     acc_hombres = 0
 
-    comunidades = key[:]
+    Comunidad_Autonoma = key[:]
 
     for v in values:
         total_contratos_mujeres, total_contratos_hombres = v[:]
         acc_mujeres += int(total_contratos_hombres)
         acc_hombres += int(total_contratos_hombres)
 
-    yield comunidades, (acc_mujeres, acc_hombres)
+    yield Comunidad_Autonoma, (acc_mujeres, acc_hombres)
 
 
 def runner(job):
