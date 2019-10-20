@@ -11,9 +11,9 @@ def load_comunidades_provincias(comunidades_file):
 			reader.next()
 	 		for line in reader:
 	 			comunidades[line[0]] = line[1]
-	
+	 
 	except:
-		pass
+	 	pass
 
 	return comunidades
 
