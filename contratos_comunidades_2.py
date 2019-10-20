@@ -36,7 +36,7 @@ class join_comunidades_provincias_contratos_reduce(key, values):
 
     		Comunidad_Autonoma = key[:]
 
-		    for v in values:
+		for v in values:
 		        total_contratos_mujeres, total_contratos_hombres = v[:]
     		    acc_mujeres += int(total_contratos_hombres)
     		    acc_hombres += int(total_contratos_hombres)
