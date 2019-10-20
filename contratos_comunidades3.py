@@ -37,7 +37,7 @@ class Join_comunidades_contratos_reduce(JoinReducer):
             contratos_mujeres, contratos_hombres = v[:]
                 if contratos_mujeres > 0 and (value[1]) in self.provincia_cache:
                 acc_mujeres += int(self.provincia_cache[(value[1], 'contratos_mujeres')])
-
+                
                 if contratos_hombres > 0 and (value[1]) in self.provincia_cache:
                 acc_hombres += int(self.provincia_cache[(value[1], 'contratos_hombres')])
 
