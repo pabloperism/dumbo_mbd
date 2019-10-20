@@ -8,7 +8,7 @@ def load_comunidades_provincias(comunidades_file):
  		# Read table - medal|prize|country|year
  		with open(comunidades_file) as f:
  			reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
-			 reader.next()
+			reader.next()
 	 		for line in reader:
 	 			comunidades[line[0]] = line[1]
 	 
