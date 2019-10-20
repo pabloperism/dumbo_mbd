@@ -5,9 +5,9 @@ from dumbo import main
 def load_comunidades_provincias(comunidades_file):
  	comunidades = {}
  	try:
- 		# Read table - medal|prize|country|year
+ 		# Read table
  		with open(comunidades_file) as f:
- 			reader = csv.reader(f, delimiter=';')
+ 			reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
 			reader.next()
 	 		for line in reader:
 	 			comunidades[line[0]] = line[1]
