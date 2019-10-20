@@ -12,10 +12,10 @@ def load_comunidades_provincias(comunidades_file):
 	 		for line in reader:
 	 			comunidades[line[0]] = line[1]
 	 
-	 except:
+	except:
 	 	pass
 
-	 return comunidades
+	return comunidades
 
 
 class Parse_contratos_municipio_mapper:
