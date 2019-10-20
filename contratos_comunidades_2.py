@@ -33,7 +33,7 @@ class join_comunidades_provincias_contratos_reduce(key, values):
         try:
 		acc_mujeres = 0
 		acc_hombres = 0
-    		Comunidad_Autonoma = key[:]
+    		comunidad_Autonoma = key[:]
 		for v in values:
 		        total_contratos_mujeres, total_contratos_hombres = v[:]
     		    	acc_mujeres += int(total_contratos_hombres)
@@ -45,7 +45,7 @@ class join_comunidades_provincias_contratos_reduce(key, values):
     	        if contratos_hombres > 0 and provincia in self.provincia:
             	    total_contratos_hombres += int(contratos_hombres)
 
-	yield Comunidad_Autonoma, (acc_mujeres, acc_hombres)
+	yield comunidad_Autonoma, (acc_mujeres, acc_hombres)
 	
 	except:
 		pass
