@@ -21,7 +21,6 @@ def parse_contratos_municipio_mapper(key, value):
 		"""
 			Parse table
 		"""
-
 	try:
 		codigo_mes, provincia, municipio, total_contratos, contratos_hombres, contratos_mujeres = value.split(';')
 		yield (provincia), (contratos_mujeres, contratos_hombres)
