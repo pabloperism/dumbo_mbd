@@ -51,9 +51,8 @@ class join_comunidades_provincias_contratos_reduce(key, values):
 		pass
 
 def runner(job):
-    inout_opts = [("inputformat", "text"), ("outputformat", "text")]
-    o1 = job.additer(parse_contratos_municipio_mapper, join_comunidades_provincias_contratos_reduce, opts=inout_opts)
-
+	inout_opts = [("inputformat", "text"), ("outputformat", "text")]
+	o1 = job.additer(parse_contratos_municipio_mapper, join_comunidades_provincias_contratos_reduce, opts=inout_opts)
 
 if __name__ == "__main__":
-    main(runner)
+	main(runner)
