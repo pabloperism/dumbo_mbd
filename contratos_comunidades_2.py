@@ -31,15 +31,13 @@ class join_comunidades_provincias_contratos_reduce(key, values):
 
    def __call__(self, key, value):
         try:
-		    acc_mujeres = 0
-		    acc_hombres = 0
-
+		acc_mujeres = 0
+		acc_hombres = 0
     		Comunidad_Autonoma = key[:]
-
 		for v in values:
 		        total_contratos_mujeres, total_contratos_hombres = v[:]
-    		    acc_mujeres += int(total_contratos_hombres)
-    		    acc_hombres += int(total_contratos_hombres)
+    		    	acc_mujeres += int(total_contratos_hombres)
+    		    	acc_hombres += int(total_contratos_hombres)
 
     	        if contratos_mujeres > 0 and provincia in self.provincia:
             	    total_contratos_mujeres += int(contratos_mujeres)
