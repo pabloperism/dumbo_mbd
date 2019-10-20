@@ -45,9 +45,7 @@ class join_comunidades_provincias_contratos_reduce(key, values):
     	        if contratos_hombres > 0 and provincia in self.provincia:
             	    total_contratos_hombres += int(contratos_hombres)
 
-
-    yield Comunidad_Autonoma, (acc_mujeres, acc_hombres)
-
+	yield Comunidad_Autonoma, (acc_mujeres, acc_hombres)
 
 def runner(job):
     inout_opts = [("inputformat", "text"), ("outputformat", "text")]
