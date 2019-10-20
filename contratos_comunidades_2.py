@@ -46,7 +46,7 @@ class join_comunidades_provincias_contratos_reduce(key, values):
             	    total_contratos_hombres += int(contratos_hombres)
 
 	yield Comunidad_Autonoma, (acc_mujeres, acc_hombres)
-	
+
 	except:
 		pass
 
