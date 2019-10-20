@@ -3,17 +3,16 @@ import csv
 from dumbo import main
 
 def load_comunidades_provincias(comunidades_file):
- 	comunidades = {}
+	comunidades = {}
  	try:
  		# Read table
- 		with open(comunidades_file) as f:
- 			reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
+		with open(comunidades_file) as f:
+			reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
 			reader.next()
-	 		for line in reader:
-	 			comunidades[line[0]] = line[1]
-	 
+			for line in reader:
+				comunidades[line[0]] = line[1]
 	except:
-	 	pass
+		pass
 
 	return comunidades
 
