@@ -24,7 +24,11 @@ class Parse_contratos_municipio_mapper:
 
     def __call__(self, key, value):
         try:
+	    total_contratos_mujeres = 0
+	    total_contratos_hombres = 0
             codigo_mes, provincia, municipio, total_contratos, contratos_hombres, contratos_mujeres = value.split(';')
+	    int(contratos_hombres)
+	    int(contratos_mujeres)
 
             if contratos_mujeres > 0 and (provincia) in self.provincia:
                 total_contratos_mujeres += int(contratos_mujeres)
