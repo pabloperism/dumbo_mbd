@@ -37,10 +37,10 @@ class Join_comunidades_contratos_reduce(JoinReducer):
             contratos_mujeres, contratos_hombres = v[:]
             
             if contratos_mujeres > 0 and (key[1], 'contratos_mujeres') in self.comunidades_cache:
-                acc_mujeres += int(self.comunidades_cache[(key[1], 'contratos_mujeres')])
+                acc_mujeres += int(self.comunidades_cache[(key[0], 'contratos_mujeres')])
             
             if contratos_hombres > 0 and (key[1], 'contratos_hombres') in self.comunidades_cache:
-                acc_hombres += int(self.comunidades_cache[(key[1], 'contratos_hombres')])
+                acc_hombres += int(self.comunidades_cache[(key[0], 'contratos_hombres')])
 
         # Emit values
         yield key, (acc_hombres, acc_mujeres)
