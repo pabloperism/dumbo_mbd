@@ -28,7 +28,7 @@ class Join_comunidades_contratos_reduce(JoinReducer):
     def primary(self, key, values):
         self.comunidades_cache = {}
         for v in values:
-            self.comunidades_cache[(key[0], v[1])] = v[1]
+            self.comunidades_cache(key[0]) = v[1]
 
     def secondary(self, key, values):
         acc_mujeres = 0
