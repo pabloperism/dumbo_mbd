@@ -1,4 +1,6 @@
 from dumbo import main, MultiMapper, primary, secondary, JoinReducer
+import sys
+print(sys.stderr,"mensaje")
 
 
 def parse_comunidades_provincias_map(key, value):
