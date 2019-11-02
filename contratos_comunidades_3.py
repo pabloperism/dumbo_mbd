@@ -26,9 +26,9 @@ class Join_comunidades_contratos_reduce(JoinReducer):
         super(Join_comunidades_contratos_reduce, self).__init__()
 
     def primary(self, key, values):
-        self.provincia_cache = {}
+        self.comunidades_cache = {}
         for v in values:
-            self.provincia_cache[(key[0], v[1])] = v[1]
+            self.comunidades_cache[(key[0], v[1])] = v[1]
 
     def secondary(self, key, values):
         acc_mujeres = 0
@@ -36,11 +36,11 @@ class Join_comunidades_contratos_reduce(JoinReducer):
         for v in values:
             contratos_mujeres, contratos_hombres = v[:]
             
-            if contratos_mujeres > 0 and (value[1]) in self.provincia_cache:
-                acc_mujeres += int(self.provincia_cache[(value[1], 'contratos_mujeres')])
+            if contratos_mujeres > 0 and (key[1], 'contratos_mujeres') in self.comunidades_cache:
+                acc_mujeres += int(self.comunidades_cache[(key[1], 'contratos_mujeres')])
             
-            if contratos_hombres > 0 and (value[1]) in self.provincia_cache:
-                acc_hombres += int(self.provincia_cache[(value[1], 'contratos_hombres')])
+            if contratos_hombres > 0 and (key[1], 'contratos_hombres') in self.comunidades_cache:
+                acc_hombres += int(self.comunidades_cache[(key[1], 'contratos_hombres')])
 
         # Emit values
         yield key, (acc_hombres, acc_mujeres)
@@ -54,5 +54,8 @@ def runner(job):
     inout_opts = [("inputformat", "text"), ("outputformat", "text")]
     multimap = MultiMapper()
     multimap.add("comunidad", primary(parse_comunidades_provincias_map))
-    multimap.add("provincia", secondary(parse_contratos_municipios_map))
-    o1 = job.additer(multimap, Join_athlete_country_medals_reduce, opts=inout_opts)
+    multimap.add("contratos_mujeres", secondary(parse_contratos_municipios_map))
+    o1 = job.additer(multimap, Join_comunidades_contratos_reduce, opts=inout_opts)
+
+if __name__ == "__main__":
+    main(runner)
