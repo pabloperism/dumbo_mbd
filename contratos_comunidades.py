@@ -3,19 +3,19 @@ import csv
 from dumbo import main
 
 def load_comunidades_provincias(comunidades_file):
- 	Comunidad_Autonoma = {}
+ 	comunidades = {}
  	try:
  		# Read table
  		with open(comunidades_file) as f:
  			reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
 			reader.next()
 	 		for line in reader:
-	 			Comunidad_Autonoma[line[0]] = line[1]
+	 			comunidades[line[0]] = line[1]
 	 
 	except:
 	 	pass
 
-	return Comunidad_Autonoma
+	return comunidades
 
 
 class Parse_contratos_municipio_mapper:
@@ -31,12 +31,12 @@ class Parse_contratos_municipio_mapper:
 	    int(contratos_mujeres)
 
             if contratos_mujeres > 0 and provincia in self.provincia:
-                total_contratos_mujeres += int(self.provincia[(Comunidad_Autonoma, 'contratos_mujeres')])
+                total_contratos_mujeres += int(self.provincia[(provincia, 'contratos_mujeres')])
 
             if contratos_hombres > 0 and provincia in self.provincia:
-                total_contratos_hombres += int(self.provincia[(Comunidad_Autonoma, 'contratos_hombres')])
+                total_contratos_hombres += int(self.provincia[(provincia, 'contratos_hombres')])
 
-            yield Comunidad_Autonoma, (contratos_mujeres, contratos_hombres)
+            yield (Comunidad_Autonoma, provincia), (contratos_mujeres, contratos_hombres)
 
         except:
             pass
@@ -45,7 +45,7 @@ def join_comunidades_provincias_contratos_reduce(key, values):
     acc_mujeres = 0
     acc_hombres = 0
 
-    Comunidad_Autonoma = key[:]
+    Comunidad_Autonoma, provincia = key[:]
 
     for v in values:
         total_contratos_mujeres, total_contratos_hombres = v[:]
