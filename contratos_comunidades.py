@@ -3,24 +3,24 @@ import csv
 from dumbo import main
 
 def load_comunidades_provincias(comunidades_file):
- 	comunidades = {}
+ 	Comunidad_Autonoma = {}
  	try:
  		# Read table
  		with open(comunidades_file) as f:
  			reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
 			reader.next()
 	 		for line in reader:
-	 			comunidades[line[0]] = line[1]
+	 			Comunidad_Autonoma[line[0]] = line[1]
 	 
 	except:
 	 	pass
 
-	return comunidades
+	return Comunidad_Autonoma
 
 
 class Parse_contratos_municipio_mapper:
     def __init__(self):
-        self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.txt')
+        self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.csv')
 
     def __call__(self, key, value):
         try:
@@ -30,13 +30,13 @@ class Parse_contratos_municipio_mapper:
 	    int(contratos_hombres)
 	    int(contratos_mujeres)
 
-            if contratos_mujeres > 0 and (provincia) in self.provincia:
-                total_contratos_mujeres += int(contratos_mujeres)
+            if contratos_mujeres > 0 and provincia in self.provincia:
+                total_contratos_mujeres += int(self.provincia[(Comunidad_Autonoma, provincia, 'contratos_mujeres')])
 
-            if contratos_hombres > 0 and (provincia) in self.provincia:
-                total_contratos_hombres += int(contratos_hombres)
+            if contratos_hombres > 0 and provincia in self.provincia:
+                total_contratos_hombres += int(self.provincia[(Comunidad_Autonoma, provincia, 'contratos_hombres')])
 
-            yield (Comunidad_Autonoma, provincia), (contratos_mujeres, contratos_hombres)
+            yield Comunidad_Autonoma, (contratos_mujeres, contratos_hombres)
 
         except:
             pass
@@ -45,7 +45,7 @@ def join_comunidades_provincias_contratos_reduce(key, values):
     acc_mujeres = 0
     acc_hombres = 0
 
-    Comunidad_Autonoma, provincia = key[:]
+    Comunidad_Autonoma = key[:]
 
     for v in values:
         total_contratos_mujeres, total_contratos_hombres = v[:]
