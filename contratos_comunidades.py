@@ -13,7 +13,7 @@ def load_comunidades_provincias(comunidades_file):
 	except:
 	 	pass
 
-	 return dicc_comunidad_provincia
+	return dicc_comunidad_provincia
 
 
 class Parse_contratos_municipio_mapper:
