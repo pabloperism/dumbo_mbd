@@ -1,17 +1,17 @@
 import csv
 
 def load_comunidades_provincias(comunidades_file):
- 	dicc_comunidad_provincia = {}
- 	try:
- 		# Read table - comunidades|provincia
- 		with open(comunidades_file) as f:
- 			reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
-			reader.next()
-	 		for line in reader:
-	 			dicc_comunidad_provincia[line[1]] = line[0]
-	
-	except:
-	 	pass
+   dicc_comunidad_provincia = {}
+   try:
+      # Read table - comunidades|provincia
+      with open(comunidades_file) as f:
+         reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
+         reader.next()
+         for line in reader:
+            dicc_comunidad_provincia[line[1]] = line[0]
+   
+   except:
+      pass
 
    return dicc_comunidad_provincia
 
