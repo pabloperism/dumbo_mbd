@@ -25,7 +25,7 @@ class Parse_contratos_municipio_mapper:
 
     def __call__(self, key, value):
         try:
-            comunidad = comunidad_provincia['provincia']
+            comunidad = comunidad_provincia[provincia]
             total_contratos_mujeres = 0
             total_contratos_hombres = 0
             codigo_mes, provincia, municipio, total_contratos, contratos_hombres, contratos_mujeres = value.split(';')
