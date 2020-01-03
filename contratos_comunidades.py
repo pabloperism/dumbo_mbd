@@ -47,7 +47,7 @@ def join_comunidades_provincias_contratos_reduce(key, values):
     acc_hombres = 0
     comunidad = comunidad_provincia.values()
 
-    comunidad = key[:]
+    comunidad, provincia = key[:]
 
     for v in values:
         total_contratos_mujeres, total_contratos_hombres = v[:]
