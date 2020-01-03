@@ -1,24 +1,27 @@
+import sys
+print>> sys.stderr,"mensaje"
+
 import csv
 
 def load_comunidades_provincias(comunidades_file):
-   dicc_comunidad_provincia = {}
+   comunidad_provincia = {}
    try:
       # Read table - comunidades|provincia
       with open(comunidades_file) as f:
          reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
          reader.next()
          for line in reader:
-            dicc_comunidad_provincia[line[1]] = line[0]
+            comunidad_provincia[line[1]] = line[0]
    
    except:
       pass
 
-   return dicc_comunidad_provinci
+   return comunidad_provincia
 
 
 class Parse_contratos_municipio_mapper:
     def __init__(self):
-        self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.txt')
+        self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.csv')
 
     def __call__(self, key, value):
         try:
