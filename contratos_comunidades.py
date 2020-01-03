@@ -10,7 +10,7 @@ def load_comunidades_provincias(comunidades_file):
 	 		for line in reader:
 	 			dicc_comunidad_provincia[line[1]] = line[0]
 	 
-	 except:
+	except:
 	 	pass
 
 	 return dicc_comunidad_provincia
