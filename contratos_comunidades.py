@@ -3,7 +3,7 @@ import csv
 def load_comunidades_provincias(comunidades_file):
  	dicc_comunidad_provincia = {}
  	try:
- 		# Read table - medal|prize|country|year
+ 		# Read table - comunidades|provincia
  		with open(comunidades_file) as f:
  			reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
 			reader.next()
@@ -14,7 +14,6 @@ def load_comunidades_provincias(comunidades_file):
 	 	pass
 
 	return dicc_comunidad_provincia
-
 
 class Parse_contratos_municipio_mapper:
     def __init__(self):
@@ -43,7 +42,7 @@ def join_comunidades_provincias_contratos_reduce(key, values):
     acc_mujeres = 0
     acc_hombres = 0
 
-    provincia = key[:]
+    dicc_comunidad_provincia = key[:]
 
     for v in values:
         total_contratos_mujeres, total_contratos_hombres = v[:]
