@@ -1,42 +1,40 @@
 import csv
 
-from dumbo import main
-
 def load_comunidades_provincias(comunidades_file):
- 	comunidades = {}
+ 	dicc_comunidad_provincia = {}
  	try:
- 		# Read table
+ 		# Read table - medal|prize|country|year
  		with open(comunidades_file) as f:
  			reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
 			reader.next()
 	 		for line in reader:
-	 			comunidades[line[0]] = line[1]
+	 			dicc_comunidad_provincia[line[1]] = line[0]
 	 
-	except:
+	 except:
 	 	pass
 
-	return comunidades
+	 return dicc_comunidad_provincia
 
 
 class Parse_contratos_municipio_mapper:
     def __init__(self):
-        self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.csv')
+        self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.txt')
 
     def __call__(self, key, value):
         try:
-	    total_contratos_mujeres = 0
-	    total_contratos_hombres = 0
+            total_contratos_mujeres = 0
+            total_contratos_hombres = 0
             codigo_mes, provincia, municipio, total_contratos, contratos_hombres, contratos_mujeres = value.split(';')
-	    int(contratos_hombres)
-	    int(contratos_mujeres)
+            int(contratos_hombres)
+            int(contratos_mujeres)
 
             if contratos_mujeres > 0 and provincia in self.provincia:
-                total_contratos_mujeres += int(self.provincia[(provincia, 'contratos_mujeres')])
+                total_contratos_mujeres += int(contratos_mujeres)
 
             if contratos_hombres > 0 and provincia in self.provincia:
-                total_contratos_hombres += int(self.provincia[(provincia, 'contratos_hombres')])
+                total_contratos_hombres += int(contratos_hombres)
 
-            yield provincia, (Comunidad_Autonoma, contratos_mujeres, contratos_hombres)
+            yield provincia, (total_contratos_mujeres, total_contratos_hombres)
 
         except:
             pass
@@ -52,8 +50,9 @@ def join_comunidades_provincias_contratos_reduce(key, values):
         acc_mujeres += int(total_contratos_hombres)
         acc_hombres += int(total_contratos_hombres)
 
-    yield provincia, (Comunidad_Autonoma, acc_mujeres, acc_hombres)
+    yield provincia, (acc_mujeres, acc_hombres)
 
+from dumbo import main
 
 def runner(job):
     inout_opts = [("inputformat", "text"), ("outputformat", "text")]
