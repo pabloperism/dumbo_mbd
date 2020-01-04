@@ -1,6 +1,3 @@
-import sys
-print>> sys.stderr,"mensaje"
-
 import csv
 
 def load_comunidades_provincias(comunidades_file):
