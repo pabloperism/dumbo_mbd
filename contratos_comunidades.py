@@ -21,10 +21,10 @@ class Parse_contratos_municipio_mapper:
         self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.csv')
 
     def __call__(self, key, value):
-
         try:
             total_contratos_mujeres = 0
             total_contratos_hombres = 0
+            comunidad = self.comunidad_provincia[provincia]
             codigo_mes, provincia, municipio, total_contratos, contratos_hombres, contratos_mujeres = value.split(';')
             int(contratos_hombres)
             int(contratos_mujeres)
