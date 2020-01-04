@@ -28,6 +28,7 @@ class Parse_contratos_municipio_mapper:
         try:
             total_contratos_mujeres = 0
             total_contratos_hombres = 0
+            comunidad = comunidad_provincia.get(provincia)
             codigo_mes, provincia, municipio, total_contratos, contratos_hombres, contratos_mujeres = value.split(';')
             int(contratos_hombres)
             int(contratos_mujeres)
@@ -38,7 +39,7 @@ class Parse_contratos_municipio_mapper:
             if contratos_hombres > 0 and provincia in self.provincia:
                 total_contratos_hombres += int(contratos_hombres)
 
-            yield provincia, (total_contratos_mujeres, total_contratos_hombres)
+            yield (provincia, comunidad), (total_contratos_mujeres, total_contratos_hombres)
 
         except:
             pass
@@ -47,14 +48,14 @@ def join_comunidades_provincias_contratos_reduce(key, values):
     acc_mujeres = 0
     acc_hombres = 0
 
-    provincia = key[:]
+    provincia, comunidad = key[:]
 
     for v in values:
         total_contratos_mujeres, total_contratos_hombres = v[:]
         acc_mujeres += int(total_contratos_hombres)
         acc_hombres += int(total_contratos_hombres)
 
-    yield provincia, (acc_mujeres, acc_hombres)
+    yield comunidad, (acc_mujeres, acc_hombres)
 
 from dumbo import main
 
