@@ -19,7 +19,6 @@ def load_comunidades_provincias(comunidades_file):
 class Parse_contratos_municipio_mapper:
     def __init__(self):
         self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.csv')
-        comunidad = self.provincia.get(provincia)
 
     def __call__(self, key, value):
 
