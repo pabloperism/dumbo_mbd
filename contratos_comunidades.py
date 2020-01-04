@@ -25,7 +25,7 @@ class Parse_contratos_municipio_mapper:
         try:
             total_contratos_mujeres = 0
             total_contratos_hombres = 0
-            comunidad = comunidad_provincia.get(provincia)
+            comunidad = self.provincia.get(provincia)
             codigo_mes, provincia, municipio, total_contratos, contratos_hombres, contratos_mujeres = value.split(';')
             int(contratos_hombres)
             int(contratos_mujeres)
