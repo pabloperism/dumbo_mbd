@@ -50,7 +50,7 @@ def join_comunidades_provincias_contratos_reduce(key, values):
 
     for v in values:
         total_contratos_mujeres, total_contratos_hombres = v[:]
-        acc_mujeres += int(total_contratos_hombres)
+        acc_mujeres += int(total_contratos_mujeres)
         acc_hombres += int(total_contratos_hombres)
 
     yield comunidad, (acc_mujeres, acc_hombres)
