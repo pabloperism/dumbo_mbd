@@ -1,38 +1,43 @@
 import csv
 
-from dumbo import main
-
 def load_comunidades_provincias(comunidades_file):
- 	comunidades = {}
- 	try:
- 		# Read table - medal|prize|country|year
- 		with open(comunidades_file) as f:
- 			reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
-			reader.next()
-	 		for line in reader:
-	 			comunidades[line[0]] = line[1]
-	 
- 	except:
- 		pass
+   comunidad_provincia = {}
+   try:
+      # Read table - comunidades|provincia
+      with open(comunidades_file) as f:
+         reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
+         reader.next()
+         for line in reader:
+            comunidad_provincia[line[1]] = line[0]
+   
+   except:
+      pass
 
- 	return comunidades
+   return comunidad_provincia
 
 
 class Parse_contratos_municipio_mapper:
     def __init__(self):
-        self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.txt')
+        self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.csv')
 
     def __call__(self, key, value):
         try:
+            total_contratos_mujeres = 0
+            total_contratos_hombres = 0
+            
             codigo_mes, provincia, municipio, total_contratos, contratos_hombres, contratos_mujeres = value.split(';')
+            int(contratos_hombres)
+            int(contratos_mujeres)
 
-            if contratos_mujeres > 0 and (provincia) in self.provincia:
+            if contratos_mujeres > 0 and provincia in self.provincia:
                 total_contratos_mujeres += int(contratos_mujeres)
 
-            if contratos_hombres > 0 and (provincia) in self.provincia:
+            if contratos_hombres > 0 and provincia in self.provincia:
                 total_contratos_hombres += int(contratos_hombres)
 
-            yield provincia, (contratos_mujeres, contratos_hombres)
+            comunidad = self.provincia.get(provincia)
+
+            yield (provincia, comunidad), (total_contratos_mujeres, total_contratos_hombres)
 
         except:
             pass
@@ -41,15 +46,16 @@ def join_comunidades_provincias_contratos_reduce(key, values):
     acc_mujeres = 0
     acc_hombres = 0
 
-    Comunidad_Autonoma = key[:]
+    provincia, comunidad = key[:]
 
     for v in values:
         total_contratos_mujeres, total_contratos_hombres = v[:]
         acc_mujeres += int(total_contratos_hombres)
         acc_hombres += int(total_contratos_hombres)
 
-    yield Comunidad_Autonoma, (acc_mujeres, acc_hombres)
+    yield comunidad, (acc_mujeres, acc_hombres)
 
+from dumbo import main
 
 def runner(job):
     inout_opts = [("inputformat", "text"), ("outputformat", "text")]
