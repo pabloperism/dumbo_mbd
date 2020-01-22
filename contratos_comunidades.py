@@ -15,7 +15,6 @@ def load_comunidades_provincias(comunidades_file):
 
    return comunidad_provincia
 
-
 class Parse_contratos_municipio_mapper:
     def __init__(self):
         self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.csv')
@@ -35,7 +34,7 @@ class Parse_contratos_municipio_mapper:
             if contratos_hombres > 0 and provincia in self.provincia:
                 total_contratos_hombres += int(contratos_hombres)
 
-            comunidad = self.provincia.get(provincia)
+            provincia = self.provincia.get(provincia)
 
             yield (provincia, comunidad), (total_contratos_mujeres, total_contratos_hombres)
 
