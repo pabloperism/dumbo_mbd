@@ -36,7 +36,7 @@ class Parse_contratos_municipio_mapper:
 
             comunidad = self.provincia.get(provincia)
 
-            yield (provincia, comunidad), (total_contratos_mujeres, total_contratos_hombres)
+            yield comunidad, (total_contratos_mujeres, total_contratos_hombres)
 
         except:
             pass
