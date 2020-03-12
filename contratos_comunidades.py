@@ -37,7 +37,7 @@ class Parse_contratos_municipio_mapper:
                 total_contratos_hombres += int(contratos_hombres)
 
 
-            yield (comunidad, provincia), (total_contratos_mujeres, total_contratos_hombres)
+            yield (comunidad), (total_contratos_mujeres, total_contratos_hombres)
 
         except:
             pass
