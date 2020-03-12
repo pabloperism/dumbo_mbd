@@ -53,7 +53,7 @@ def join_comunidades_provincias_contratos_reduce(key, values):
         acc_mujeres += int(total_contratos_mujeres)
         acc_hombres += int(total_contratos_hombres)
 
-    yield comunidad, (provincia, acc_mujeres, acc_hombres)
+    yield comunidad, (acc_mujeres, acc_hombres)
 
 from dumbo import main
 
