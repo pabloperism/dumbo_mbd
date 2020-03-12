@@ -17,7 +17,7 @@ def load_comunidades_provincias(comunidades_file):
 
 class Parse_contratos_municipio_mapper:
     def __init__(self):
-        self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.txt')
+        self.provincia = load_comunidades_provincias('./Comunidades_y_provincias.csv')
 
     def __call__(self, key, value):
         try:
@@ -27,17 +27,16 @@ class Parse_contratos_municipio_mapper:
             codigo_mes, provincia, municipio, total_contratos, contratos_hombres, contratos_mujeres = value.split(';')
             int(contratos_hombres)
             int(contratos_mujeres)
-            
-            comunidad = self.provincia.get(provincia)
-            
-            if contratos_mujeres > 0 and provincia in comunidad:
+
+            if contratos_mujeres > 0 and provincia in self.provincia:
                 total_contratos_mujeres += int(contratos_mujeres)
 
-            if contratos_hombres > 0 and provincia in comunidad:
+            if contratos_hombres > 0 and provincia in self.provincia:
                 total_contratos_hombres += int(contratos_hombres)
 
+            comunidad = self.provincia.get(provincia)
 
-            yield (comunidad), (total_contratos_mujeres, total_contratos_hombres)
+            yield (provincia, comunidad), (total_contratos_mujeres, total_contratos_hombres)
 
         except:
             pass
@@ -46,7 +45,7 @@ def join_comunidades_provincias_contratos_reduce(key, values):
     acc_mujeres = 0
     acc_hombres = 0
 
-    comunidad = key[:]
+    provincia, comunidad = key[:]
 
     for v in values:
         total_contratos_mujeres, total_contratos_hombres = v[:]
