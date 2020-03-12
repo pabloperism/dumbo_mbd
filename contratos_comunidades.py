@@ -24,17 +24,17 @@ class Parse_contratos_municipio_mapper:
             total_contratos_mujeres = 0
             total_contratos_hombres = 0
             
+            comunidad = self.provincia.get(provincia)
+
             codigo_mes, provincia, municipio, total_contratos, contratos_hombres, contratos_mujeres = value.split(';')
             int(contratos_hombres)
             int(contratos_mujeres)
 
-            if contratos_mujeres > 0 and provincia in self.provincia:
+            if contratos_mujeres > 0 and provincia in comunidad:
                 total_contratos_mujeres += int(contratos_mujeres)
 
-            if contratos_hombres > 0 and provincia in self.provincia:
+            if contratos_hombres > 0 and provincia in comunidad:
                 total_contratos_hombres += int(contratos_hombres)
-
-            comunidad = self.provincia.get(provincia)
 
             yield (comunidad), (total_contratos_mujeres, total_contratos_hombres)
 
