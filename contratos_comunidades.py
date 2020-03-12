@@ -8,7 +8,7 @@ def load_comunidades_provincias(comunidades_file):
          reader = csv.reader(f, delimiter=';', quotechar='"', doublequote=False)
          reader.next()
          for line in reader:
-            comunidad_provincia[line[1]] = line[0]
+            comunidad_provincia[line[0]] = line[1]
    
    except:
       pass
