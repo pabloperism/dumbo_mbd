@@ -27,16 +27,17 @@ class Parse_contratos_municipio_mapper:
             codigo_mes, provincia, municipio, total_contratos, contratos_hombres, contratos_mujeres = value.split(';')
             int(contratos_hombres)
             int(contratos_mujeres)
-
+            
             comunidad = self.provincia.get(provincia)
-
+            
             if contratos_mujeres > 0 and provincia in self.provincia:
                 total_contratos_mujeres += int(contratos_mujeres)
 
             if contratos_hombres > 0 and provincia in self.provincia:
                 total_contratos_hombres += int(contratos_hombres)
 
-            yield (comunidad), (total_contratos_mujeres, total_contratos_hombres)
+
+            yield (comunidad, provincia), (total_contratos_mujeres, total_contratos_hombres)
 
         except:
             pass
@@ -45,7 +46,7 @@ def join_comunidades_provincias_contratos_reduce(key, values):
     acc_mujeres = 0
     acc_hombres = 0
 
-    comunidad = key[:]
+    comunidad, provincia = key[:]
 
     for v in values:
         total_contratos_mujeres, total_contratos_hombres = v[:]
