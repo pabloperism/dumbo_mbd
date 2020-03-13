@@ -37,7 +37,7 @@ class Parse_contratos_municipio_mapper:
                 total_contratos_hombres += int(contratos_hombres)
 
 
-            yield (provincia, comunidad), (total_contratos_mujeres, total_contratos_hombres)
+            yield (comunidad), (total_contratos_mujeres, total_contratos_hombres)
 
         except:
             pass
@@ -46,7 +46,7 @@ def join_comunidades_provincias_contratos_reduce(key, values):
     acc_mujeres = 0
     acc_hombres = 0
 
-    provincia, comunidad = key[:]
+    comunidad = key[:]
 
     for v in values:
         total_contratos_mujeres, total_contratos_hombres = v[:]
