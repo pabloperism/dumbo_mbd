@@ -30,10 +30,10 @@ class Parse_contratos_municipio_mapper:
             
             comunidad = self.provincia.get(provincia)
             
-            if contratos_mujeres > 0 and comunidad in self.provincia:
+            if contratos_mujeres > 0 and provincia in comunidad:
                 total_contratos_mujeres += int(contratos_mujeres)
 
-            if contratos_hombres > 0 and comunidad in self.provincia:
+            if contratos_hombres > 0 and provincia in comunidad:
                 total_contratos_hombres += int(contratos_hombres)
 
 
